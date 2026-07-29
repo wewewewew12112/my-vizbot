@@ -7,8 +7,8 @@ from telegram.ext import (
     filters, ContextTypes,
 )
 
-TELEGRAM_TOKEN = "PASTE_TELEGRAM_TOKEN_HERE"
-MINIMAX_API_KEY = "PASTE_MINIMAX_KEY_HERE"
+TELEGRAM_TOKEN = "8807812885:AAHv2h9BU6-4TN_qz4Z97LAEx1JHR0wtKkQ"
+MINIMAX_API_KEY = "sk-api-N_XMm2HBsINZsyZHheBDq6xgRJJ_WW2iWnpQLK-D_4fGqvlrLj5BUrZKtozO4E-nRbFCutMVRr1JOcHcILEy8bksmytHulMQBF2fpz5pexGHvdPXxXrCVkU"
 MINIMAX_BASE_URL = "https://api.minimaxi.com/v1"
 MODEL_NAME = "SecretSmartModel"
 
