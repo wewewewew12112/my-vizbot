@@ -8,7 +8,7 @@ from telegram.ext import (
 )
 
 TELEGRAM_TOKEN = "8807812885:AAHv2h9BU6-4TN_qz4Z97LAEx1JHR0wtKkQ"
-MINIMAX_API_KEY = "sk-api-N_XMm2HBsINZsyZHheBDq6xgRJJ_WW2iWnpQLK-D_4fGqvlrLj5BUrZKtozO4E-nRbFCutMVRr1JOcHcILEy8bksmytHulMQBF2fpz5pexGHvdPXxXrCVkU"
+MINIMAX_API_KEY = "sk-api-Aep1raQNbqCCfbI96dJVNIOBYJ_AxwI4gVypI_13OCTCdnHlnQ-0Bg9L1VstcjajAqus9mvysquwR8yGOoBfZVTvH394k5YuB9rqxZJuI-K2bb65JMGx6rk"
 MINIMAX_BASE_URL = "https://api.minimaxi.com/v1"
 MODEL_NAME = "MiniMax-M3"
 
