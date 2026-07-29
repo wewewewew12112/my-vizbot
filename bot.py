@@ -4,13 +4,16 @@ from openai import OpenAI
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder, CommandHandler, MessageHandler,
-    filters, ContextTypes
+    filters, ContextTypes,
 )
 
-TELEGRAM_TOKEN = ***"TELEGRAM_TOKEN"]
-MINIMAX_API_KEY = ***"MINIMAX_API_KEY"]
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+MINIMAX_API_KEY = os.getenv("MINIMAX_API_KEY")
 MINIMAX_BASE_URL = "https://api.minimaxi.com/v1"
-MODEL_NAME = "MiniMax-M3"
+MODEL_NAME = "SecretSmartModel"
+
+if not TELEGRAM_TOKEN or not MINIMAX_API_KEY:
+    raise ValueError("TELEGRAM_TOKEN и MINIMAX_API_KEY должны быть заданы в Variables Railway")
 
 llm = OpenAI(api_key=MINIMAX_API_KEY, base_url=MINIMAX_BASE_URL)
 
@@ -20,14 +23,14 @@ SYSTEM = """Ты — бот-наставник по визуалу для фит
 Помогаешь: рилс, свет, монтаж, цвет, пресеты, контент-план.
 Говоришь на «ты», коротко, по делу. Даёшь конкретные шаги и примеры."""
 
-async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+async def start(update, ctx):
     await update.message.reply_text(
         "🟢 Привет! Я — бот-наставник по визуалу.\n"
         "Спрашивай про рилс, свет, монтаж, цвет.\n"
         "Команды: /help /image /subscribe"
     )
 
-async def help_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+async def help_cmd(update, ctx):
     await update.message.reply_text(
         "🎬 Идеи для рилс\n"
         "💡 Свет и ракурс\n"
@@ -37,14 +40,14 @@ async def help_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         "🖼 /image описание — сгенерить превью"
     )
 
-async def image_cmd(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
-    prompt = " ".join(ctx.args)
+async def image_cmd(update, ctx):
+    prompt = " ".join(ctx.args) if ctx.args else ""
     if not prompt:
         await update.message.reply_text("Пример: /image кинетическая луна на чёрном фоне")
         return
     await update.message.reply_text("⏳ Рисую… (image API ещё не подключён)")
 
-async def chat(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+async def chat(update, ctx):
     uid = update.effective_user.id
     text = update.message.text
     msgs = history.setdefault(uid, [])
@@ -67,6 +70,6 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_cmd))
     app.add_handler(CommandHandler("image", image_cmd))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, chat))
+    app.add_handler(MessageHandler(filters.TEXT and not filters.COMMAND, chat))
     print("Бот запущен 🚀")
     app.run_polling()
