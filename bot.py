@@ -67,6 +67,6 @@ if __name__ == "__main__":
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_cmd))
     app.add_handler(CommandHandler("image", image_cmd))
-    app.add_handler(MessageHandler(filters.TEXT and not filters.COMMAND, chat))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, chat))
     print("Бот запущен 🚀")
     app.run_polling()
